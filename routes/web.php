@@ -22,7 +22,7 @@ Route::get('/redirect', function (Request $request) {
 
     $query = http_build_query([
         'client_id' => '753862712981672',
-        'redirect_uri' => 'http://localhost:8000/callback',
+        'redirect_uri' => 'http://auth.kreatinc.dev/callback',
         'response_type' => 'code',
         'scope' => '',
     ]);
@@ -32,7 +32,7 @@ Route::get('/redirect', function (Request $request) {
 
 
 Route::get('/callback', function(Request $request){
-    return redirect('http://' . session('subdomain') . '/callback?' . $request->getQueryString());
+    return redirect('https://' . session('subdomain') . '/callback?' . $request->getQueryString());
 });
 
 Route::get('/', function () {
