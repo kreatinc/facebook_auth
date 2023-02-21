@@ -24,7 +24,7 @@ Route::get('/redirect', function (Request $request) {
         'client_id' => '1347313176116571',
         'redirect_uri' => 'https://auth.kreatinc.dev/callback',
         'response_type' => 'code',
-        'scope' => '',
+        'scope' => 'public_profile,email',
     ]);
     session(['subdomain' => $url]);
     return redirect('https://www.facebook.com/v16.0/dialog/oauth?'.$query);
@@ -32,7 +32,30 @@ Route::get('/redirect', function (Request $request) {
 
 
 Route::get('/callback', function(Request $request){
-    return redirect('https://' . session('subdomain') . '/callback?' . $request->getQueryString());
+    $code = $request->code;
+
+    // requesting access_token
+    $query = http_build_query([
+        'client_id' => '1347313176116571',
+        'redirect_uri' => 'https://auth.kreatinc.dev/callback',
+        'client_secret' => 'd01bcc2635121c702352dc4f5158cbba',
+        'code' => $code,
+    ]);
+
+    $url = "https://graph.facebook.com/v16.0/oauth/access_token?" . $query;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $head = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    $data = ['body'=>$head, 'httpCode'=>$httpCode];
+    $data = json_decode($data['body']);
+
+
+    return redirect('https://' . session('subdomain') . '/callback?' . $data->getQueryString());
+
+
 });
 
 Route::get('/', function () {
