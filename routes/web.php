@@ -71,7 +71,7 @@ Route::get('/callback', function(Request $request){
     $name = $data['name'];
     $email = $data['email'];
     
-    return redirect("https://' . session('subdomain') . '/callback?name=$name&email=$email" );
+    return redirect("https://".session('subdomain')."/callback?name=$name&email=$email" );
 
 
 });
