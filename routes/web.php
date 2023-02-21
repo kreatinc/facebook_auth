@@ -68,8 +68,8 @@ Route::get('/callback', function(Request $request){
     $data = ['body'=>$head, 'httpCode'=>$httpCode];
     $data = json_decode($data['body'], true);
 
-    $name = $data['name'];
-    $email = $data['email'];
+    $name = $data['name'] ?? '';
+    $email = $data['email'] ?? '';
     
     return redirect("https://".session('subdomain')."/callback?name=$name&email=$email" );
 
