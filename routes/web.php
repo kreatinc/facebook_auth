@@ -22,7 +22,7 @@ Route::get('/redirect', function (Request $request) {
 
     $query = http_build_query([
         'client_id' => '753862712981672',
-        'redirect_uri' => 'http://auth.kreatinc.dev/callback',
+        'redirect_uri' => 'https://auth.kreatinc.dev/callback',
         'response_type' => 'code',
         'scope' => '',
     ]);
