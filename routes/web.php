@@ -50,10 +50,28 @@ Route::get('/callback', function(Request $request){
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
     $data = ['body'=>$head, 'httpCode'=>$httpCode];
-    $data = json_decode($data['body']);
+    $data = json_decode($data['body'], true);
+    $access_token = $data['access_token'];
+    
+    // get name and email 
 
+    $url = "https://graph.facebook.com/me?fields=name,email&access_token=" . $access_token;
 
-    return redirect('https://' . session('subdomain') . '/callback?' . $data->getQueryString());
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $head = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    $data = ['body'=>$head, 'httpCode'=>$httpCode];
+    $data = json_decode($data['body'], true);
+
+    $name = $data['name'];
+    $email = $data['email'];
+    
+    return redirect("https://' . session('subdomain') . '/callback?name=$name&email=$email" );
 
 
 });
