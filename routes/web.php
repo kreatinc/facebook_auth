@@ -21,7 +21,7 @@ Route::get('/redirect', function (Request $request) {
     
 
     $query = http_build_query([
-        'client_id' => '1347313176116571',
+        'client_id' => '606658787946765',
         'redirect_uri' => 'https://auth.kreatinc.dev/callback',
         'response_type' => 'code',
         'scope' => 'public_profile,email',
@@ -38,7 +38,7 @@ Route::get('/callback', function(Request $request){
     $query = http_build_query([
         'client_id' => '1347313176116571',
         'redirect_uri' => 'https://auth.kreatinc.dev/callback',
-        'client_secret' => 'd01bcc2635121c702352dc4f5158cbba',
+        'client_secret' => 'f36bc6d4ba09ba7ed6fe37ae44baa88b',
         'code' => $code,
     ]);
 
