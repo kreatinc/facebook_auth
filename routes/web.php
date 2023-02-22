@@ -36,7 +36,7 @@ Route::get('/callback', function(Request $request){
 
     // requesting access_token
     $query = http_build_query([
-        'client_id' => '1347313176116571',
+        'client_id' => '606658787946765',
         'redirect_uri' => 'https://auth.kreatinc.dev/callback',
         'client_secret' => 'f36bc6d4ba09ba7ed6fe37ae44baa88b',
         'code' => $code,
@@ -51,8 +51,8 @@ Route::get('/callback', function(Request $request){
     curl_close($ch);
     $data = ['body'=>$head, 'httpCode'=>$httpCode];
     $data = json_decode($data['body'], true);
-    // $access_token = $data['access_token'];
-    return $data;
+    $access_token = $data['access_token'];
+    // return $data;
     // get name and email 
 
     $url = "https://graph.facebook.com/me?fields=name,email&access_token=" . $access_token;
