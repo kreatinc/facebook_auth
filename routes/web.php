@@ -41,7 +41,7 @@ Route::get('/callback', function(Request $request){
         'client_secret' => 'f36bc6d4ba09ba7ed6fe37ae44baa88b',
         'code' => $code,
     ]);
-
+    
     $url = "https://graph.facebook.com/v16.0/oauth/access_token?" . $query;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -51,8 +51,8 @@ Route::get('/callback', function(Request $request){
     curl_close($ch);
     $data = ['body'=>$head, 'httpCode'=>$httpCode];
     $data = json_decode($data['body'], true);
-    $access_token = $data['access_token'];
-    
+    // $access_token = $data['access_token'];
+    return $data;
     // get name and email 
 
     $url = "https://graph.facebook.com/me?fields=name,email&access_token=" . $access_token;
